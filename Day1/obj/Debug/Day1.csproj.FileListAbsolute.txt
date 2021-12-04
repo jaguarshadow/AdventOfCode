@@ -1,0 +1,6 @@
+C:\Users\starb\source\repos\AdventOfCode\Day1\bin\Debug\Day1.exe.config
+C:\Users\starb\source\repos\AdventOfCode\Day1\bin\Debug\Day1.exe
+C:\Users\starb\source\repos\AdventOfCode\Day1\bin\Debug\Day1.pdb
+C:\Users\starb\source\repos\AdventOfCode\Day1\obj\Debug\Day1.csproj.CoreCompileInputs.cache
+C:\Users\starb\source\repos\AdventOfCode\Day1\obj\Debug\Day1.exe
+C:\Users\starb\source\repos\AdventOfCode\Day1\obj\Debug\Day1.pdb

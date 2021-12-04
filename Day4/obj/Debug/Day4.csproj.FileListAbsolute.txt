@@ -1,0 +1,7 @@
+C:\Users\starb\source\repos\AdventOfCode\Day4\bin\Debug\Day4.exe.config
+C:\Users\starb\source\repos\AdventOfCode\Day4\bin\Debug\Day4.exe
+C:\Users\starb\source\repos\AdventOfCode\Day4\bin\Debug\Day4.pdb
+C:\Users\starb\source\repos\AdventOfCode\Day4\obj\Debug\Day4.csproj.AssemblyReference.cache
+C:\Users\starb\source\repos\AdventOfCode\Day4\obj\Debug\Day4.csproj.CoreCompileInputs.cache
+C:\Users\starb\source\repos\AdventOfCode\Day4\obj\Debug\Day4.exe
+C:\Users\starb\source\repos\AdventOfCode\Day4\obj\Debug\Day4.pdb
