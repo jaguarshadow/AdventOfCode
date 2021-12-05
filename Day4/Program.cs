@@ -13,6 +13,7 @@ namespace Day4
         {
             public static List<int> CalledNumbers = new List<int>();
             public static List<Board> BoardsInPlay = new List<Board>();
+
             public static void GenerateBoards(List<string> input)
             {
                 var called_nums = input[0].Split(',');
@@ -22,7 +23,7 @@ namespace Day4
                 for (int i = 1; i < input.Count; i++)
                 {
                     if (string.IsNullOrWhiteSpace(input[i])) continue;
-                    var row = input[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    var row = input[i].Split(new string[] { " -> " }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     foreach (string num in row) current_numbers.Add(int.Parse(num));
                     row_count++;
                     if (row_count == 5)
@@ -34,6 +35,8 @@ namespace Day4
                     }
                 }
             }
+
+
             public static void CallNumbers(bool win = true)
             {
                 var winners = new List<Board>();
@@ -82,6 +85,8 @@ namespace Day4
                 return winners;
             }
         }
+
+
         public class Board
         {
             public int Id { get; set; }
@@ -126,6 +131,8 @@ namespace Day4
                 return sum * last_call;
             }
         }
+
+
         static void Main(string[] args)
         {
             List<string> input = File.ReadLines(@"input.txt").ToList();

@@ -16,6 +16,7 @@ namespace Day3
 
             Console.WriteLine($"co2 * oxygen = {GetLifeSupportRating(binary_numbers)}");
         }
+
         static int GetPowerConsumption(List<string> binary_numbers)
         {
             string common_bits = GetCommonBits(binary_numbers);
@@ -23,6 +24,7 @@ namespace Day3
             int epsilon = Convert.ToInt32(string.Join("", common_bits.Select(c => c == '0' ? '1' : '0')), 2);
             return gamma * epsilon;
         }
+
         static int GetLifeSupportRating(List<string> input)
         {
             var o2_candidates = new List<string>(input);
