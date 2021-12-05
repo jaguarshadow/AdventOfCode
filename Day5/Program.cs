@@ -26,49 +26,26 @@ namespace Day5
                 Vector end = new Vector(segment[2], segment[3]);
                 bool diagonal = start.X != end.X && start.Y != end.Y;
                 if (skip_diagonals && start.X != end.X && start.Y != end.Y) continue;
-                foreach (Vector v in GetPointsInLine(start, end, diagonal))
+                foreach (Vector v in GetPointsInLine(start, end))
                 {
                     if (intersects.ContainsKey(v.ToString())) intersects[v.ToString()] += 1;
                     else intersects.Add(v.ToString(), 1);
                 }
-
             }
             int num_dangerous_points = intersects.Count(pair => pair.Value > 1);
             intersects.Clear();
             return num_dangerous_points;
         }
 
-        static List<Vector> GetPointsInLine(Vector point1, Vector point2, bool diagonal)
+        static List<Vector> GetPointsInLine(Vector start, Vector end)
         {
-            var points_in_line = new List<Vector>();
-            int diff;
-            if (diagonal)
-            {
-                var x = Math.Min(point1.X, point2.X);
-                var y1 = x == point1.X ? point1.Y : point2.Y;
-                var y2 = y1 == point1.Y ? point2.Y : point1.Y;
-                bool y_increasing = y1 < y2;
-                diff = (int)Math.Abs(point1.X - point2.X);
-                foreach (int i in Enumerable.Range((int)x, diff + 1))
-                {
-                    points_in_line.Add(new Vector(x, y1));
-                    x++;
-                    if (y_increasing) y1++;
-                    else y1--;
-                }
-            }
-            else
-            {
-                bool horizontal = point1.X != point2.X;
-                var min = horizontal ? Math.Min(point1.X, point2.X) : Math.Min(point1.Y, point2.Y);
-                diff = horizontal ? (int)Math.Abs(point1.X - point2.X) : (int)Math.Abs(point1.Y - point2.Y);
-                foreach (int i in Enumerable.Range((int)min, (int)diff + 1))
-                {
-                    Vector v = horizontal ? new Vector(i, point1.Y) : new Vector(point1.X, i);
-                    points_in_line.Add(v);
-                }
-            }
-            return points_in_line;
+            var points = new List<Vector>();
+            var displacement = new Vector(end.X - start.X, end.Y - start.Y);
+            int length = 1 + (int)Math.Max(Math.Abs(displacement.X), Math.Abs(displacement.Y));
+            var dir = new Vector(Math.Sign(displacement.X), Math.Sign(displacement.Y));
+            foreach (int i in Enumerable.Range(0, length))
+                points.Add(new Vector(start.X + (i * dir.X), start.Y + (i * dir.Y)));
+            return points;
         }
     }
 }

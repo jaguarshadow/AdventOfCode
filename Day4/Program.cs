@@ -16,14 +16,13 @@ namespace Day4
 
             public static void GenerateBoards(List<string> input)
             {
-                var called_nums = input[0].Split(',');
-                CalledNumbers.AddRange(called_nums.Select(n => int.Parse(n)));
+                CalledNumbers.AddRange(input[0].Split(',').Select(n => int.Parse(n)));
                 int row_count = 0;
                 var current_numbers = new List<int>();
                 for (int i = 1; i < input.Count; i++)
                 {
                     if (string.IsNullOrWhiteSpace(input[i])) continue;
-                    var row = input[i].Split(new string[] { " -> " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    var row = input[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     foreach (string num in row) current_numbers.Add(int.Parse(num));
                     row_count++;
                     if (row_count == 5)
@@ -80,17 +79,15 @@ namespace Day4
             }
             public static List<Board> CheckForWinners(bool all = false)
             {
-                var winners = new List<Board>();
-                foreach (Board b in BoardsInPlay) if (b.Winner) winners.Add(b);
-                return winners;
+                return BoardsInPlay.Where(b=> b.Winner).ToList();
             }
         }
-
 
         public class Board
         {
             public int Id { get; set; }
             public bool Winner { get; set; }
+
             private int[,] Numbers = new int[5, 5];
             private bool[,] Called = new bool[5, 5];
             public Board(int id, List<int> nums)
@@ -107,6 +104,7 @@ namespace Day4
             }
             public void ProcessCalledNumber(int number)
             {
+                
                 for (int i = 0; i < 5; i++)
                 {
                     for (int j = 0; j < 5; j++)
@@ -117,6 +115,8 @@ namespace Day4
                             break;
                         }
                     }
+
+                    
                     if (Called[i, 0] && Called[i, 1] && Called[i, 2] && Called[i, 3] && Called[i, 4]
                         || Called[0, i] && Called[1, i] && Called[2, i] && Called[3, i] && Called[4, i]) Winner = true;
                 }
@@ -143,5 +143,3 @@ namespace Day4
         }
     }   
 }
-
-
