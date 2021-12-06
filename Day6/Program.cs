@@ -12,31 +12,48 @@ namespace Day6
         static void Main(string[] args)
         {
             var input = File.ReadLines(@"input.txt").ToArray();
-            var starting_school = input[0].Split(',').Select(n => int.Parse(n)).ToList();
-            var school = new List<int>(starting_school);
-            Console.WriteLine($"Fish after 80 days: {CaclulateSpawn(school, 80)}");
-            school = new List<int>(starting_school);
-            Console.WriteLine($"Fish after 256 days: {CaclulateSpawn(school, 256)}");
+            var starting_school = input[0].Split(',').Select(n => double.Parse(n)).ToList();
+            var smallinput = new List<double>() { 3, 4, 3, 1, 2 };
+            Console.WriteLine($"Fish after 80 days: {CaclulateSpawn(starting_school, 80)}");
+            Console.WriteLine($"Fish after 256 days: {CaclulateSpawn(starting_school, 256)}");
         }
 
-        public static int CaclulateSpawn(List<int> school, int days)
+        public static double CaclulateSpawn(List<double> school, int days)
         {
-            foreach (int day in Enumerable.Range(0, days))
-            {
-                int new_fish = 0;
-                for (int i = 0; i < school.Count; i++)
-                {
-                    if (school[i] == 0)
-                    {
-                        new_fish++;
-                        school[i] = 6;
+            var fish_map = new Dictionary<int, double>() { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 },
+                                                        { 5, 0 }, { 6, 0 }, {7, 0 }, { 8, 0 } };
+            double fish_new = 0;
+            double fish_reset = 0;
+            double number_of_fish = 0;
+            foreach (int fish in school) fish_map[fish]++;
+
+            foreach (int day in Enumerable.Range(1, days)) { // For each Day
+                for (int timer = 0; timer < 9; timer++) { // For each possible timer value
+
+                    if (timer == 6) number_of_fish = fish_map[6] - fish_reset;
+                    else if (timer == 8) number_of_fish = fish_map[8] - fish_new;
+                    else  number_of_fish = fish_map[timer];
+
+                    if (timer == 0 && number_of_fish > 0){ 
+                        fish_map[0] -= number_of_fish;
+                        fish_map[6] += number_of_fish;
+                        fish_reset += number_of_fish;
+                        fish_map[8] += number_of_fish;
+                        fish_new += number_of_fish;
                     }
-                    else school[i]--;
+                    else {
+                        if (number_of_fish > 0) {
+                            fish_map[timer] -= number_of_fish;
+                            fish_map[timer - 1] += number_of_fish;
+                        }
+
+                    }
                 }
-                for (int i = 0; i < new_fish; i++) school.Add(8);
-                Console.WriteLine($"Fish after day {day}: {school.Count}");
+                fish_new = 0;
+                fish_reset = 0;
+                //Console.WriteLine($"Day: {day}, Fish:{fish_map.Sum(x => x.Value)}");
             }
-            return school.Count;
+            return fish_map.Sum(x => x.Value);
         }
     }
 }
