@@ -35,7 +35,6 @@ namespace Day4
                 }
             }
 
-
             public static void CallNumbers(bool win = true)
             {
                 var winners = new List<Board>();
@@ -45,7 +44,7 @@ namespace Day4
                     while (winners.Count == 0)
                     {
                         BoardsInPlay.ForEach(board => board.ProcessCalledNumber(CalledNumbers[index]));
-                        winners = CheckForWinners();
+                        winners = BoardsInPlay.Where(b => b.Winner).ToList();
                         if (index == CalledNumbers.Count - 1) break;
                         index++;
                     }
@@ -59,7 +58,7 @@ namespace Day4
                     while (index < CalledNumbers.Count && inPlay.Count > 1)
                     {
                         inPlay.ForEach(board => board.ProcessCalledNumber(CalledNumbers[index]));
-                        winners = CheckForWinners();
+                        winners = BoardsInPlay.Where(b => b.Winner).ToList();
                         if (winners.Count > 0) winners.ForEach(winner => inPlay.Remove(winner));
                         index++;
                         if (inPlay.Count == 1)
@@ -73,13 +72,10 @@ namespace Day4
                             }
                         }
                     }
-                    if (last_winner != null) Console.WriteLine($"Losing Board Id: {inPlay[0].Id} \nScore: {Board.CalculateScore(inPlay[0], CalledNumbers[index - 1])}\n");            
+                    if (last_winner != null) Console.WriteLine($"Losing Board Id: {inPlay[0].Id} \nScore: {Board.CalculateScore(inPlay[0], CalledNumbers[index - 1])}\n");
+                    else Console.WriteLine("No winning boards found.");
                 }
                 return;
-            }
-            public static List<Board> CheckForWinners(bool all = false)
-            {
-                return BoardsInPlay.Where(b=> b.Winner).ToList();
             }
         }
 
@@ -87,6 +83,8 @@ namespace Day4
         {
             public int Id { get; set; }
             public bool Winner { get; set; }
+
+            private List<Dictionary<string, bool>> BoardNumbers = new List<Dictionary<string, bool>>();
 
             private int[,] Numbers = new int[5, 5];
             private bool[,] Called = new bool[5, 5];
@@ -104,7 +102,11 @@ namespace Day4
             }
             public void ProcessCalledNumber(int number)
             {
-                
+                foreach (var item in BoardNumbers)
+                    if (item.ContainsKey(number.ToString())) item[number.ToString()] = true;
+
+
+                // End test
                 for (int i = 0; i < 5; i++)
                 {
                     for (int j = 0; j < 5; j++)
