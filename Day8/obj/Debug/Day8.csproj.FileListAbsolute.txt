@@ -1,0 +1,7 @@
+C:\Users\starb\source\repos\AdventOfCode\Day8\bin\Debug\Day8.exe.config
+C:\Users\starb\source\repos\AdventOfCode\Day8\bin\Debug\Day8.exe
+C:\Users\starb\source\repos\AdventOfCode\Day8\bin\Debug\Day8.pdb
+C:\Users\starb\source\repos\AdventOfCode\Day8\obj\Debug\Day8.csproj.AssemblyReference.cache
+C:\Users\starb\source\repos\AdventOfCode\Day8\obj\Debug\Day8.csproj.CoreCompileInputs.cache
+C:\Users\starb\source\repos\AdventOfCode\Day8\obj\Debug\Day8.exe
+C:\Users\starb\source\repos\AdventOfCode\Day8\obj\Debug\Day8.pdb
