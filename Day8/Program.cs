@@ -99,10 +99,8 @@ namespace Day8
         public static bool SegmentMatch(string first, string second)
         {
             if (first.Length != second.Length) return false;
-            int count = 0;
-            foreach (var c in first) if (second.Contains(c)) count++;
-            if (count == first.Length) return true;
-            return false;
+            foreach (var c in first) if (!second.Contains(c)) return false;
+            return true;
         }
     }
 }
